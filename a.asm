@@ -39,7 +39,7 @@ getNum:
 		pop 	rax
 	
 
-;----------Get Num-----------
+;----------Get Num-----------1
 
 Exit:
 	;Exit
