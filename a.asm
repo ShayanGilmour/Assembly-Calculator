@@ -18,28 +18,50 @@ _start:
 	mov	rdx,	51
 	int	80h
 
+	mov	rsi,	str
 	call	getNum
 	call	writeNum
+	jmp	Exit
 
-;----------Get Num-----------
+;----------Get Num----------- 
+;Returns the number rsi is 
+;Pointing in RAX
 getNum:
-	push	rax ;Functional
-	push	r8  ;Ans
-	push	r9  ;Digit
 
-	xor	r8,	r8
+push	r8  ;Ans
+push	r9  ;Digit
+push	rbx
+push	rcx
+push	rdx
+
+xor	r8,	r8
 
 	gWhile:
-	
-	mov	r9b,	
+	mov	r9b,	[rsi] ;One digit
+	cmp	r9b,	'0'
+	jl	gExit
 
-	gExit:
-		pop r9
-		pop	r8
-		pop 	rax
-	
+	mov	rax,	r8
+	mov	r10,	10
+	mul	r10
 
-;----------Get Num-----------1
+	sub	r9,	'0'
+	add	rax,	r9
+	mov	r8,	rax
+
+	inc	rsi
+	jmp	gWhile
+
+gExit:
+mov	rax,	r8 ;Ans
+;Pop
+pop	rdx
+pop	rcx
+pop	rbx
+pop	r9
+pop	r8
+ret
+;----------Get Num-----------
 
 Exit:
 	;Exit
