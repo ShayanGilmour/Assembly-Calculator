@@ -5,6 +5,7 @@ Summation`+`, Subtraction`-`, Multiplication`*`, Division`/`, Power`^` and Logar
 
 Every operation must be in a parenthesis; So in every parenthesis, there's at most one operation.
 You can use the previous answer by character 'a' or 'A'.
+Use the dollar sign character `$` to quit the calculator.
 
 ### Operation symbols
 1. `A+B`: `A` plus `B`
@@ -17,7 +18,8 @@ You can use the previous answer by character 'a' or 'A'.
 ### Compile & Run
 To compile and run, execute the command `nasm -f elf64 ./a.asm && ld -o ./a -e _start ./a.o&& ./a`
 
-### Input Samples:
+### Input sample:
 
 1. `((4*5)^2)`
 1. `((a\2)^((3+4)/2))`
+1. `$`
