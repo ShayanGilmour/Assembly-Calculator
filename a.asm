@@ -1,3 +1,4 @@
+
 section .data
 	mInput db	0xA,'Input:',0xA
 	lInput equ	$-mInput
