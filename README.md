@@ -1,7 +1,7 @@
 # Assembly Calculator
 ### Step by step calculator with 6 operations
-
-Summation, Subtraction, Multiplication, Division, Power, Logarithm
+The calculator shows step by step of solving through the input. Supports the following operations:
+Summation`+`, Subtraction`-`, Multiplication`*`, Division`/`, Power`^` and Logarithm`\`.
 
 Every operation must be in a parenthesis; So in every parenthesis, there's at most one operation.
 You can use the previous answer by character 'a' or 'A'.
