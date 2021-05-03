@@ -18,15 +18,24 @@ Use the dollar sign character `$` to quit the calculator.
 ### Compile & Run
 To compile and run, execute the command `nasm -f elf64 ./a.asm && ld -o ./a -e _start ./a.o&& ./a`
 
-### Input sample:
-
+### Input/Output samples:
 1. `((4*5)^2)`
- 1. `((4*5)^2)`
- 1. `(20^2)`
- 1. `400`
-
+   * `(20^2)`
+   * `400`
 1. `((a\2)^((3+4)/2))`
+   * `((400\2)^((3+4)/2))`
+   * `(8^((3+4)/2))`
+   * `(8^(7/2))`
+   * `(8^3)`
+   * `512`
 1. `((a*(-3))*-1)`
+   * `((512*(-3))*-1)`
+   * `((512*-3)*-1)`
+   * `(-1536*-1)`
+   * `1536`
 1. `(-(-2+3)*6)`
+   * `(-1*6)`
+   * `-6`
 1. `A`
+   * `-6`
 1. `$`
