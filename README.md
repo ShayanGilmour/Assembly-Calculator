@@ -4,7 +4,7 @@ The calculator shows step by step of solving through the input. Supports the fol
 Summation`+`, Subtraction`-`, Multiplication`*`, Division`/`, Power`^` and Logarithm`\`.
 
 Every operation must be in a parenthesis; So in every parenthesis, there's at most one operation.
-You can use the previous answer by character 'a' or 'A'.
+You can use the previous answer by character 'a' or 'A'. You can write the negative number with or without a pair of parenthesis; e.g both `(1--3)` and `(1-(-3))` are valid. *Don't use `+` for positive integerst; e.g `(1-+3)` is invalid.*
 Use the dollar sign character `$` to quit the calculator.
 
 ### Operation symbols
@@ -23,4 +23,6 @@ To compile and run, execute the command `nasm -f elf64 ./a.asm && ld -o ./a -e _
 1. `((4*5)^2)`
 1. `((a\2)^((3+4)/2))`
 1. `((a*(-3))*-1)`
+1. `(-(-2+3)*6)`
+1. `A`
 1. `$`
