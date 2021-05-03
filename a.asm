@@ -2,6 +2,13 @@ section .data
 	mInput db	0xA,'Input:',0xA
 	lInput equ	$-mInput
 
+	mErr1	db	'Power must be a non-negative integer. Aborting...',0xA
+	lErr1	equ	$-mErr1
+
+	mErr2	db	'Unable to solve the logarithm. Aborting...',0xA
+	lErr2	equ	$-mErr2
+
+
 section .bss
 	str:	resb	501
 
@@ -188,6 +195,9 @@ div	r15
 jmp	calcRet
 
 calcPow:
+cmp	r15,	0
+jl	powerError
+
 mov	rax,	1
 powWhile:
 	cmp	r15,	0
@@ -197,12 +207,30 @@ powWhile:
 	dec	r15
 	jmp	powWhile
 
+powerError:
+	mov	rax,	4
+	mov	rbx,	1
+	mov	rcx,	mErr1
+	mov	rdx,	lErr1
+	int	0x80
+	jmp	getInput
+
 calcLog:
+cmp	r13,	0
+jl	logError
+cmp	r15,	1
+je	logError
+cmp	r15,	0
+je	logError
+jl	logNeg
+
 mov	r9,	0
 mov	rax,	r13
 logWhile:
 	cmp	rax,	1
-	jz	logSwap
+	je	logSwap
+	cmp	rax,	0
+	je	logSwap
 	xor	rdx,	rdx
 	div	r15
 	inc	r9
@@ -210,6 +238,20 @@ logWhile:
 logSwap:
 	mov	rax,	r9
 	jmp	calcRet
+
+logNeg:
+	neg	r15
+	mov	r9,	0
+	mov	rax,	r13
+	jmp	logWhile
+
+logError:
+	mov	rax,	4
+	mov	rbx,	1
+	mov	rcx,	mErr2
+	mov	rdx,	lErr2
+	int	0x80
+	jmp	getInput
 
 calcRet:
 pop	rdx
@@ -270,6 +312,7 @@ push	rdx
 
 cmp	rax,	0
 jz	putZero
+jl	putNeg
 
 mov	rbx,	10
 xor	rcx,	rcx ;Number of digits
@@ -294,6 +337,18 @@ pPrint:
 	mov	[rsi], al
 	inc	rsi
 	jmp	pPrint
+
+putNeg: ;Put a negative number
+push	rax
+xor	rax,	rax
+mov	al,	'-'
+mov	[rsi], al
+inc	rsi
+pop	rax
+neg	rax
+mov	rbx,	10
+xor	rcx,	rcx
+jmp	pWhile
 
 
 putZero: ;Zero is a special case
@@ -348,6 +403,12 @@ push	rbx
 push	rcx
 push	rdx
 push	r10
+push	r11
+
+xor	r11,	r11
+mov	r9b,	[rsi]
+cmp	r9b,	'-'
+jz	readNeg
 
 xor	r8,	r8
 
@@ -369,9 +430,24 @@ xor	r8,	r8
 	inc	rsi
 	jmp	gWhile
 
+readNeg:
+inc	rsi
+mov	r11,	1 ;flag for negativity
+xor	r8,	r8
+jmp	gWhile
+
+makeNeg:
+neg	rax
+jmp	gPop
+
+
 gExit:
 mov	rax,	r8 ;Ans
-;Pop
+cmp	r11,	0
+jg	makeNeg
+
+gPop:
+pop	r11
 pop	r10
 pop	rdx
 pop	rcx
@@ -386,4 +462,3 @@ Exit:
 	mov	eax,	1
 	mov	ebx,	0
 	int	80h
-
