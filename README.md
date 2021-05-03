@@ -21,6 +21,10 @@ To compile and run, execute the command `nasm -f elf64 ./a.asm && ld -o ./a -e _
 ### Input sample:
 
 1. `((4*5)^2)`
+ 1. `((4*5)^2)`
+ 1. `(20^2)`
+ 1. `400`
+
 1. `((a\2)^((3+4)/2))`
 1. `((a*(-3))*-1)`
 1. `(-(-2+3)*6)`
