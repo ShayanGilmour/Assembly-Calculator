@@ -22,5 +22,5 @@ To compile and run, execute the command `nasm -f elf64 ./a.asm && ld -o ./a -e _
 
 1. `((4*5)^2)`
 1. `((a\2)^((3+4)/2))`
-1. `(((-3)^a)*-1)`
+1. `((a^(-3))*-1)`
 1. `$`
