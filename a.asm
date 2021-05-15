@@ -310,6 +310,28 @@ push	rbx
 push	rcx
 push	rdx
 
+push	r8
+push	r9
+mov	r8,	str
+add	r8,	470
+mov	r9,	str
+add	r9,	490
+
+pushRight: ;Make space to insert the number
+mov	bl,	[r8]
+mov	[r9],	bl
+cmp	r9,	rdi
+jz	continuePut
+dec	r8
+dec	r9
+jmp	pushRight
+
+
+continuePut:
+add	rdi,	20
+pop	r9
+pop	r8
+
 cmp	rax,	0
 jz	putZero
 jl	putNeg
